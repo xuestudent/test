@@ -1,0 +1,4 @@
+﻿  Contact .c
+D:\C文件\Contact\Contact .h(1,1): warning C4828: 文件包含在偏移 0x459 处开始的字符，该字符在当前源字符集中无效(代码页 936)。
+D:\C文件\Contact\Contact .c(114,1): warning C4029: 声明的形参表不同于定义
+  Contact.vcxproj -> D:\C文件\Contact\x64\Debug\Contact.exe
