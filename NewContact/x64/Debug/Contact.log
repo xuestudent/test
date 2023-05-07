@@ -1,0 +1,9 @@
+﻿  Contact .c
+D:\C文件\Contact\Contact .h(1,1): warning C4828: 文件包含在偏移 0x4f4 处开始的字符，该字符在当前源字符集中无效(代码页 936)。
+D:\C文件\Contact\Contact .c(51,5): warning C4553: “==”: 未使用表达式结果；是否打算使用“=”?
+D:\C文件\Contact\Contact .c(152,36): warning C4028: 形参 2 与声明不同
+D:\C文件\Contact\Contact .c(333,5): warning C4553: “==”: 未使用表达式结果；是否打算使用“=”?
+  test.c
+D:\C文件\Contact\Contact .h(1,1): warning C4828: 文件包含在偏移 0x4f4 处开始的字符，该字符在当前源字符集中无效(代码页 936)。
+  正在生成代码...
+  Contact.vcxproj -> D:\C文件\Contact\x64\Debug\Contact.exe
