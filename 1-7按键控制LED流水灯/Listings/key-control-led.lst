@@ -1,0 +1,103 @@
+C51 COMPILER V9.54   KEY_CONTROL_LED                                                       05/28/2023 14:46:40 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE KEY_CONTROL_LED
+OBJECT MODULE PLACED IN .\Objects\key-control-led.obj
+COMPILER INVOKED BY: E:\keil5\C51\BIN\C51.EXE key-control-led.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\List
+                    -ings\key-control-led.lst) TABS(2) OBJECT(.\Objects\key-control-led.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          #include "Delay.h"
+   3          #include "key.h"
+   4          #include "Timer0.h"
+   5          #include <INTRINS.H>
+   6          
+   7          
+   8          
+   9          //void Timer0_Inite()//配置定时器零  可以软件配置
+  10          //{//16为计数器
+  11          ////  TMOD=0X01;//0000 0001  配置TMOD寄存器
+  12          //  TMOD&=0xF0;//把tmod的低四位清零，高四位保持不变  按位与
+  13          //  TMOD|=0x01;//把tmod的最低位置一，高四位保持不变  按位或
+  14          //  TF0=0;//中断溢出标志位
+  15          //  TR0=1;//定时器T0使能
+  16          //  TH0=64535/256;//有两个寄存器8个为一位，所以存数需要分开    高八位
+  17          //  TL0=64535%256+1;//对目标置取余存到低八位  65536才会溢出
+  18          //  ET0=1;//配置中断的寄存器
+  19          //  EA=1;//配置中断的寄存器
+  20          //  PT0=0;//配置优先级寄存器
+  21          //}
+  22          //void Timer0_Init(void)    //1毫秒@12.000MHz
+  23          //{
+  24          //  TMOD &= 0xF0;     //设置定时器模式
+  25          //  TMOD |= 0x01;     //设置定时器模式
+  26          //  TL0 = 0x18;       //设置定时初始值
+  27          //  TH0 = 0xFC;       //设置定时初始值
+  28          //  TF0 = 0;        //清除TF0标志
+  29          //  TR0 = 1;        //定时器0开始计时
+  30          
+  31          //  ET0=1;//配置中断的寄存器
+  32          //  EA=1;//配置中断的寄存器
+  33          //  PT0=0;//配置优先级寄存器
+  34          //}
+  35          unsigned char keynumber,ledmode;
+  36          void main()
+  37          {
+  38   1        P1=0xFE;
+  39   1        Timer0_Init();
+  40   1        while(1)
+  41   1        {
+  42   2          keynumber=key();
+  43   2          if(keynumber)
+  44   2          {
+  45   3            if(keynumber==1)
+  46   3            {
+  47   4              ledmode++;
+  48   4              if(ledmode>=2)
+  49   4              {
+  50   5                ledmode=0;
+  51   5              }
+  52   4            }
+  53   3          }
+  54   2        }
+C51 COMPILER V9.54   KEY_CONTROL_LED                                                       05/28/2023 14:46:40 PAGE 2   
+
+  55   1      }
+  56          
+  57          unsigned int T0count;
+  58                      //常规
+  59          void Timer0_Routine()  interrupt 1//中断之后直接跳到该程序
+  60          {
+  61   1        TL0 = 0x18;       //设置定时初始值
+  62   1        TH0 = 0xFC;       
+  63   1      //  TH0=64535/256;//到时间之后赋初始值
+  64   1      //  TL0=64535%256;//到时间之后赋初始值
+  65   1        T0count++;
+  66   1        if(T0count>=500)//一秒之后亮灯，一秒之后灭灯
+  67   1        {
+  68   2          T0count=0;//
+  69   2         if(ledmode==0)
+  70   2           P1=_crol_(P1,1);
+  71   2         if(ledmode==1)
+  72   2           P1=_cror_(P1,1);
+  73   2          
+  74   2        }
+  75   1        
+  76   1        
+  77   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    116    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

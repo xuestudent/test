@@ -1,0 +1,7 @@
+".\Objects\key-control-led.obj",
+".\Objects\Timer0.obj",
+".\Objects\key.obj",
+".\Objects\Delay.obj" 
+TO ".\Objects\key-control-led" 
+PRINT(".\Listings\key-control-led.m51") RAMSIZE(256) 
+DISABLEWARNING (16) 
